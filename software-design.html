@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Design & Engineering - Gaku Kikuchi ePortfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+            display: inline-block;
+            margin: 2rem 0;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            color: #667eea;
+            margin: 2rem 0 1rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .content h3 {
+            color: #764ba2;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.3rem;
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .content ul {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+
+        .content li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .enhancement-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .enhancement-box {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .enhancement-box h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .skills-showcase {
+            background: rgba(118, 75, 162, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .skills-showcase h3 {
+            color: #764ba2;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-snippet {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem;
+            }
+            
+            .enhancement-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Gaku Kikuchi</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="algorithms.html">Algorithms</a></li>
+                <li><a href="database.html">Database</a></li>
+                <li><a href="code-review.html">Code Review</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <a href="index.html" class="back-button">← Back to Portfolio</a>
+        
+        <section class="hero">
+            <h1>Software Design & Engineering</h1>
+            <p>Restaurant Mobile App Enhancement - Demonstrating UI/UX design, component architecture, and mobile development best practices</p>
+        </section>
+
+        <section class="content">
+            <h2>About the Artifact</h2>
+            <p>The artifact I selected is a mobile restaurant information app created in the CS 360 course, "Mobile Architecture and Programming." It was built using React Native and Firebase. The app allows users to view restaurant lists, see menu items, and log in. I designed the user interface and implemented the main screens.</p>
+
+            <p>I chose this artifact because it shows my ability to create a user-friendly mobile app and connect it with a backend system. Originally, the app did not have a reservation feature, so I planned to enhance it by adding a new screen for users to make reservations.</p>
+
+            <div class="enhancement-grid">
+                <div class="enhancement-box">
+                    <h4>Before Enhancement</h4>
+                    <ul>
+                        <li>Basic restaurant listing view</li>
+                        <li>Simple menu display</li>
+                        <li>Basic user authentication</li>
+                        <li>Static content only</li>
+                        <li>Limited user interaction</li>
+                    </ul>
+                </div>
+                <div class="enhancement-box">
+                    <h4>After Enhancement</h4>
+                    <ul>
+                        <li>Comprehensive reservation system</li>
+                        <li>Review submission functionality</li>
+                        <li>Favorites management</li>
+                        <li>Enhanced UI/UX design</li>
+                        <li>Improved user experience</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Enhancement Implementation</h2>
+            
+            <h3>Reservation System</h3>
+            <p>I implemented a comprehensive reservation system that allows users to:</p>
+            <ul>
+                <li>Select restaurants from the main listing</li>
+                <li>Choose preferred date and time slots</li>
+                <li>Specify party size and special requests</li>
+                <li>Submit reservations with confirmation</li>
+                <li>View and manage existing reservations</li>
+            </ul>
+
+            <div class="code-snippet">
+// Example: Reservation Component Structure
+const ReservationScreen = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedTime, setSelectedTime] = useState('');
+  const [partySize, setPartySize] = useState(2);
+  const [specialRequests, setSpecialRequests] = useState('');
+
+  const submitReservation = async () => {
+    const reservationData = {
+      restaurantId,
+      userId,
+      date: selectedDate,
+      time: selectedTime,
+      partySize,
+      specialRequests,
+      status: 'pending'
+    };
+    
+    await saveReservation(reservationData);
+    navigation.navigate('ConfirmationScreen');
+  };
+
+  return (
+    // Reservation form UI components
+  );
+};
+            </div>
+
+            <h3>Review Submission Feature</h3>
+            <p>Added functionality for users to submit and view reviews:</p>
+            <ul>
+                <li>Star rating system (1-5 stars)</li>
+                <li>Text review with character limit</li>
+                <li>Photo upload capability</li>
+                <li>Review validation and moderation</li>
+                <li>Display of user reviews with timestamps</li>
+            </ul>
+
+            <h3>Favorites Management</h3>
+            <p>Implemented a favorites system that enables users to:</p>
+            <ul>
+                <li>Save restaurants to personal favorites list</li>
+                <li>Quick access to favorite restaurants</li>
+                <li>Remove items from favorites</li>
+                <li>Sort favorites by various criteria</li>
+                <li>Sync favorites across devices</li>
+            </ul>
+
+            <h2>Technical Skills Demonstrated</h2>
+            
+            <div class="skills-showcase">
+                <h3>Key Technologies & Frameworks</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <strong>React Native</strong>
+                        <p>Cross-platform mobile development</p>
+                    </div>
+                    <div class="skill-item">
+                        <strong>Firebase</strong>
+                        <p>Backend services & real-time database</p>
+                    </div>
+                    <div class="skill-item">
+                        <strong>JavaScript ES6+</strong>
+                        <p>Modern JavaScript features</p>
+                    </div>
+                    <div class="skill-item">
+                        <strong>UI/UX Design</strong>
+                        <p>User interface & experience design</p>
+                    </div>
+                    <div class="skill-item">
+                        <strong>State Management</strong>
+                        <p>React hooks & context API</p>
+                    </div>
+                    <div class="skill-item">
+                        <strong>API Integration</strong>
+                        <p>RESTful services & data handling</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Course Outcomes Alignment</h2>
+            
+            <h3>Innovative Techniques and Tools</h3>
+            <p>This enhancement demonstrates my ability to use well-founded and innovative techniques in computing practices. By implementing a comprehensive reservation system, review functionality, and favorites management, I've created a solution that delivers real value to users and accomplishes industry-specific goals in the restaurant and hospitality sector.</p>
+
+            <h3>Professional Communication</h3>
+            <p>The development process involved creating detailed documentation, user interface designs, and technical specifications that are coherent, technically sound, and appropriately adapted to different audiences - from end users to technical stakeholders.</p>
+
+            <h2>Challenges and Learning Outcomes</h2>
+            
+            <h3>Technical Challenges</h3>
+            <ul>
+                <li><strong>State Management Complexity:</strong> Managing complex state across multiple screens and components required careful planning and implementation of React Native's state management patterns.</li>
+                <li><strong>User Experience Design:</strong> Creating intuitive user flows for reservation booking while maintaining consistency with existing app design patterns.</li>
+                <li><strong>Data Synchronization:</strong> Ensuring real-time updates across different app screens when users make reservations or add favorites.</li>
+            </ul>
+
+            <h3>Problem-Solving Approach</h3>
+            <ul>
+                <li>Conducted user experience research to understand reservation flow requirements</li>
+                <li>Implemented incremental development with frequent testing of new features</li>
+                <li>Used React Native debugging tools to optimize performance</li>
+                <li>Applied mobile-first design principles for responsive layouts</li>
+            </ul>
+
+            <h2>Professional Development Impact</h2>
+            <p>This enhancement project significantly contributed to my growth as a software developer by providing hands-on experience with:</p>
+            <ul>
+                <li>Full-stack mobile application development</li>
+                <li>User-centered design principles</li>
+                <li>Modern JavaScript and React Native best practices</li>
+                <li>Integration of multiple complex features into a cohesive application</li>
+                <li>Professional software development workflows and documentation</li>
+            </ul>
+
+            <p>The skills developed through this project directly align with my career goals in IT infrastructure consulting, where understanding modern application architectures, user experience considerations, and mobile development best practices are essential for advising clients on digital transformation initiatives.</p>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

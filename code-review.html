@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Review - Gaku Kikuchi ePortfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+            display: inline-block;
+            margin: 2rem 0;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            color: #667eea;
+            margin: 2rem 0 1rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .content h3 {
+            color: #764ba2;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.3rem;
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .content ul {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+
+        .content li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .video-container {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .video-placeholder {
+            background: #f8f9fa;
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            padding: 4rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .video-placeholder h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .video-placeholder p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .video-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .review-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .review-section {
+            background: rgba(118, 75, 162, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .review-section h4 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .review-section ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .outcome-card {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-top: 3px solid #667eea;
+        }
+
+        .outcome-card h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .outcome-card p {
+            color: #666;
+            font-size: 0.95rem;
+            text-align: left;
+            margin-bottom: 0;
+        }
+
+        .enhancement-preview {
+            background: rgba(40, 167, 69, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .enhancement-preview h3 {
+            color: #28a745;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem;
+            }
+            
+            .video-container {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Gaku Kikuchi</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="software-design.html">Software Design</a></li>
+                <li><a href="algorithms.html">Algorithms</a></li>
+                <li><a href="database.html">Database</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <a href="index.html" class="back-button">← Back to Portfolio</a>
+        
+        <section class="hero">
+            <h1>Code Review</h1>
+            <p>Comprehensive analysis of existing artifacts and enhancement planning across three technical categories</p>
+        </section>
+
+        <section class="content">
+            <h2>About the Code Review</h2>
+            <p>This code review was conducted as part of CS 499 Milestone One, where I analyzed my restaurant mobile app created in CS 360 and developed comprehensive enhancement plans for three key areas: Software Design & Engineering, Algorithms & Data Structures, and Database Management. The review follows industry best practices for code analysis and serves as the foundation for all subsequent enhancements in my ePortfolio.</p>
+
+            <div class="video-container">
+                <h2 style="color: #667eea; margin-bottom: 1rem;">Code Review Video</h2>
+                <div class="video-placeholder">
+                    <h3>🎥 Professional Code Review Presentation</h3>
+                    <p>A comprehensive walkthrough of the restaurant app codebase, analyzing existing functionality, identifying areas for improvement, and outlining detailed enhancement plans for each category.</p>
+                    <a href="#" class="video-button">▶ Watch Code Review Video</a>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #888;">
+                        Note: Video hosted externally (YouTube/Vimeo) due to file size constraints
+                    </p>
+                </div>
+            </div>
+
+            <h2>Review Methodology</h2>
+            <p>The code review follows a systematic approach to analyze the existing codebase and identify opportunities for enhancement. My methodology includes examining code structure, logic efficiency, functionality gaps, security considerations, and documentation quality.</p>
+
+            <div class="review-sections">
+                <div class="review-section">
+                    <h4>Existing Functionality Analysis</h4>
+                    <ul>
+                        <li>Detailed walkthrough of current features</li>
+                        <li>Component architecture assessment</li>
+                        <li>Data flow analysis</li>
+                        <li>User interface evaluation</li>
+                        <li>Integration points review</li>
+                    </ul>
+                </div>
+                <div class="review-section">
+                    <h4>Code Quality Assessment</h4>
+                    <ul>
+                        <li>Structure and organization</li>
+                        <li>Logic efficiency and performance</li>
+                        <li>Error handling mechanisms</li>
+                        <li>Code documentation and comments</li>
+                        <li>Adherence to best practices</li>
+                    </ul>
+                </div>
+                <div class="review-section">
+                    <h4>Security Analysis</h4>
+                    <ul>
+                        <li>Authentication implementation</li>
+                        <li>Data validation practices</li>
+                        <li>Input sanitization</li>
+                        <li>Potential vulnerability assessment</li>
+                        <li>Security best practices compliance</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Key Findings from Code Review</h2>
+            
+            <h3>Strengths Identified</h3>
+            <ul>
+                <li><strong>Solid Foundation:</strong> The React Native architecture provides a strong foundation for mobile development</li>
+                <li><strong>User Interface Design:</strong> Clean and intuitive user interface with consistent styling</li>
+                <li><strong>Component Structure:</strong> Well-organized component hierarchy following React best practices</li>
+                <li><strong>Firebase Integration:</strong> Proper integration with Firebase for basic data operations</li>
+            </ul>
+
+            <h3>Areas for Improvement</h3>
+            <ul>
+                <li><strong>Limited Functionality:</strong> Missing key features like reservations, reviews, and favorites</li>
+                <li><strong>Performance Issues:</strong> Inefficient data retrieval and search operations</li>
+                <li><strong>Security Gaps:</strong> Basic authentication without proper security measures</li>
+                <li><strong>Data Management:</strong> Simple Firebase structure lacking normalization and optimization</li>
+                <li><strong>Error Handling:</strong> Insufficient error handling and user feedback mechanisms</li>
+            </ul>
+
+            <h2>Enhancement Plans by Category</h2>
+
+            <div class="enhancement-preview">
+                <h3>Software Design & Engineering Enhancement</h3>
+                <p><strong>Focus:</strong> Expanding application functionality and improving user experience</p>
+                <ul>
+                    <li>Implement comprehensive reservation system with date/time selection</li>
+                    <li>Add review and rating functionality for restaurants</li>
+                    <li>Create favorites management system</li>
+                    <li>Enhance UI/UX with improved navigation and responsive design</li>
+                    <li>Implement better state management and error handling</li>
+                </ul>
+            </div>
+
+            <div class="enhancement-preview">
+                <h3>Algorithms & Data Structures Enhancement</h3>
+                <p><strong>Focus:</strong> Optimizing search, filter, and data processing performance</p>
+                <ul>
+                    <li>Replace linear search with efficient hash-based lookup systems</li>
+                    <li>Implement binary search for sorted data operations</li>
+                    <li>Add trie data structure for autocomplete functionality</li>
+                    <li>Optimize filtering algorithms with pre-computed indices</li>
+                    <li>Implement intelligent caching strategies for performance</li>
+                </ul>
+            </div>
+
+            <div class="enhancement-preview">
+                <h3>Database Enhancement</h3>
+                <p><strong>Focus:</strong> Migrating to comprehensive SQLite database architecture</p>
+                <ul>
+                    <li>Design normalized 9-table relational database schema</li>
+                    <li>Implement secure authentication with password hashing</li>
+                    <li>Create complex relationships between entities (users, restaurants, orders)</li>
+                    <li>Add strategic indexing for query performance optimization</li>
+                    <li>Implement SQL injection prevention and data validation</li>
+                </ul>
+            </div>
+
+            <h2>Course Outcomes Alignment</h2>
+            <div class="outcomes-grid">
+                <div class="outcome-card">
+                    <h4>Collaborative Environments</h4>
+                    <p>Code review process demonstrates ability to analyze and improve code through systematic evaluation and feedback incorporation.</p>
+                </div>
+                <div class="outcome-card">
+                    <h4>Professional Communication</h4>
+                    <p>Video presentation showcases technical communication skills, explaining complex concepts to diverse audiences.</p>
+                </div>
+                <div class="outcome-card">
+                    <h4>Computing Solutions</h4>
+                    <p>Analysis identifies algorithmic improvements and design solutions for real-world mobile application challenges.</p>
+                </div>
+                <div class="outcome-card">
+                    <h4>Innovative Techniques</h4>
+                    <p>Enhancement plans demonstrate knowledge of modern development tools and industry-standard practices.</p>
+                </div>
+                <div class="outcome-card">
+                    <h4>Security Mindset</h4>
+                    <p>Security analysis identifies vulnerabilities and proposes comprehensive security improvements.</p>
+                </div>
+            </div>
+
+            <h2>Technical Analysis Highlights</h2>
+            
+            <h3>Architecture Assessment</h3>
+            <p>The original application follows a standard React Native architecture with Firebase backend integration. While functional, the architecture lacks scalability and performance optimization. The code review identified opportunities to improve component organization, state management, and data flow patterns.</p>
+
+            <h3>Performance Evaluation</h3>
+            <p>Performance analysis revealed several bottlenecks in data retrieval and search operations. The linear search through restaurant data becomes inefficient with larger datasets, and the lack of caching mechanisms impacts user experience. The enhancement plan addresses these issues through algorithmic optimization and intelligent data management.</p>
+
+            <h3>Security Assessment</h3>
+            <p>Security analysis uncovered significant vulnerabilities in the authentication system and data handling. The original implementation lacks proper password security, input validation, and protection against common attacks. The database enhancement plan includes comprehensive security measures to address these concerns.</p>
+
+            <h2>Implementation Strategy</h2>
+            <p>The code review established a clear implementation strategy for the enhancements:</p>
+            <ol>
+                <li><strong>Incremental Development:</strong> Implement enhancements incrementally to maintain functionality</li>
+                <li><strong>Testing at Each Stage:</strong> Comprehensive testing after each enhancement to ensure stability</li>
+                <li><strong>Performance Monitoring:</strong> Continuous performance monitoring to validate improvements</li>
+                <li><strong>Security-First Approach:</strong> Implement security measures as foundational elements</li>
+                <li><strong>User Experience Focus:</strong> Prioritize enhancements that directly improve user experience</li>
+            </ol>
+
+            <h2>Professional Development Impact</h2>
+            <p>Conducting this comprehensive code review has significantly enhanced my professional development by:</p>
+            <ul>
+                <li>Developing systematic approaches to code analysis and quality assessment</li>
+                <li>Learning to identify performance bottlenecks and security vulnerabilities</li>
+                <li>Gaining experience in technical communication and presentation skills</li>
+                <li>Understanding the importance of planning before implementation</li>
+                <li>Building confidence in evaluating and improving existing codebases</li>
+            </ul>
+
+            <h3>Industry Relevance</h3>
+            <p>The skills demonstrated in this code review are directly applicable to professional software development environments where code reviews are standard practice. The ability to systematically analyze code, identify areas for improvement, and communicate findings effectively is essential for IT infrastructure consulting roles.</p>
+
+            <h3>Continuous Improvement Mindset</h3>
+            <p>This code review process instilled a continuous improvement mindset that will be valuable throughout my career. Understanding that software development is an iterative process where initial implementations can always be enhanced has shaped my approach to professional development and technical problem-solving.</p>
+
+            <h2>Reflection on Review Process</h2>
+            <p>The code review process provided valuable insights into my own development as a programmer. Analyzing code I had written months earlier allowed me to see my growth and identify areas where my understanding had deepened. This experience reinforced the importance of:</p>
+            <ul>
+                <li><strong>Documentation:</strong> Proper documentation makes code review and enhancement planning much more effective</li>
+                <li><strong>Planning:</strong> Thorough analysis before implementation leads to better outcomes</li>
+                <li><strong>Security Awareness:</strong> Security considerations must be integrated from the beginning of development</li>
+                <li><strong>Performance Mindset:</strong> Algorithm efficiency and performance optimization should be considered during initial development</li>
+            </ul>
+
+            <h2>Connection to Career Goals</h2>
+            <p>This code review experience directly supports my career goals in IT infrastructure consulting by demonstrating:</p>
+            <ul>
+                <li><strong>Analytical Skills:</strong> Ability to systematically analyze complex systems and identify improvement opportunities</li>
+                <li><strong>Technical Communication:</strong> Skills in presenting technical findings to diverse audiences</li>
+                <li><strong>Problem-Solving Approach:</strong> Methodical approach to identifying and solving technical challenges</li>
+                <li><strong>Quality Assurance:</strong> Understanding of code quality standards and best practices</li>
+                <li><strong>Security Awareness:</strong> Recognition of security considerations in system design and implementation</li>
+            </ul>
+
+            <h2>Lessons Learned</h2>
+            <p>The code review process taught me several important lessons that will guide my future development work:</p>
+            
+            <h3>Technical Lessons</h3>
+            <ul>
+                <li>The importance of considering scalability and performance from the initial design phase</li>
+                <li>Security cannot be an afterthought - it must be built into the foundation</li>
+                <li>Algorithm selection has significant impact on application performance</li>
+                <li>Database design decisions affect every aspect of application functionality</li>
+            </ul>
+
+            <h3>Professional Lessons</h3>
+            <ul>
+                <li>Code reviews are valuable learning opportunities, not just quality assurance measures</li>
+                <li>Clear communication of technical concepts is as important as technical implementation</li>
+                <li>Planning and analysis time invested upfront saves significant development time later</li>
+                <li>Continuous learning and improvement are essential in the rapidly evolving field of technology</li>
+            </ul>
+
+            <h2>Looking Forward</h2>
+            <p>The code review established a clear roadmap for the enhancements implemented throughout CS 499. Each enhancement category builds upon the findings and recommendations from this initial analysis, creating a cohesive improvement strategy that addresses the identified weaknesses while building upon the existing strengths.</p>
+
+            <p>The systematic approach developed through this code review process will be invaluable in my professional career, particularly in IT infrastructure consulting where the ability to analyze existing systems, identify improvement opportunities, and communicate recommendations effectively is essential for success.</p>
+
+            <h2>Conclusion</h2>
+            <p>This code review represents the foundation of my ePortfolio development process, demonstrating my ability to critically analyze existing code, identify areas for improvement, and develop comprehensive enhancement plans. The systematic methodology, attention to security and performance considerations, and clear communication of findings showcase the professional development skills that will be essential in my career as an IT infrastructure consultant.</p>
+
+            <p>The review process not only provided a roadmap for the subsequent enhancements but also reinforced the importance of continuous learning, quality assurance, and professional communication in software development. These skills, combined with the technical enhancements implemented throughout the capstone course, demonstrate my readiness to contribute effectively to professional development teams and infrastructure consulting projects.</p>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add functionality to video button (placeholder)
+        document.querySelector('.video-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Code Review Video would be embedded here or linked to external hosting platform (YouTube/Vimeo)');
+        });
+    </script>
+</body>
+</html>
